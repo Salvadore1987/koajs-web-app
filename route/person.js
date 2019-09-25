@@ -3,6 +3,7 @@ const parser = require('koa-bodyparser');
 const router = new Router({
     prefix: "/persons"
 });
+const personModel = require('../model/person');
 
 const contentType = {"Content-Type": "application/json"};
 
@@ -21,6 +22,12 @@ router
         ctx.body = personList.filter(value => value.id == ctx.params.id).map(value => value);
     })
     .get('/', async (ctx, next) => {
+        let person = personModel.Person({
+            name: "John",
+            surname: "Doe",
+            age: 30
+        });
+        console.log(person);
         ctx.headers = contentType;
         ctx.body = personList;
     })
